@@ -23,10 +23,9 @@ public class Sessao {
     @OneToMany(mappedBy = "sessao", cascade = CascadeType.ALL)
     private List<Voto> votos;
 
-
     public Sessao(){}
 
-    public boolean isAberta() {
+    public boolean isOpen() {
         LocalDateTime now = LocalDateTime.now();
         return now.isAfter(dataAbertura) && now.isBefore(dataFechamento);
     }
@@ -49,6 +48,10 @@ public class Sessao {
 
     public void setDataAbertura(LocalDateTime dataAbertura) {
         this.dataAbertura = dataAbertura;
+    }
+
+    public List<Voto> getVotos() {
+        return votos;
     }
 
     public LocalDateTime getDataFechamento() {

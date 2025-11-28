@@ -2,10 +2,7 @@ package com.julio.votacao.exception;
 
 
 import com.julio.votacao.exception.model.ApiError;
-import com.julio.votacao.exception.type.AssociadoAlreadyExistsException;
-import com.julio.votacao.exception.type.AssociadoNotFoundException;
-import com.julio.votacao.exception.type.PautaNotFoundException;
-import com.julio.votacao.exception.type.SessaoNotFoundException;
+import com.julio.votacao.exception.type.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -44,5 +41,16 @@ public class GlobalExcpetionHandler {
         }
         response.put("errors", errors);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(SessaoAlreadyExpired.class)
+    public ResponseEntity<ApiError> handleSessaoAlreadyExpired(SessaoAlreadyExpired ex) {
+        ApiError apiError = new ApiError(ex.getMessage(), 410);
+        return ResponseEntity.status(HttpStatus.GONE).body(apiError);
+    }
+
+    @ExceptionHandler(AssociadoAlreadyVoted.class)
+    public ResponseEntity<ApiError> handleAssociadoAlreadyVoted(AssociadoAlreadyVoted ex) {
+        ApiError apiError = new ApiError(ex.getMessage(), 409);
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(apiError);
     }
 }

@@ -48,4 +48,7 @@ public class Associado {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+    public List<Voto> getVotos() {
+        return votos;
+    }
 }

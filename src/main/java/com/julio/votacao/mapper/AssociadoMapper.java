@@ -8,6 +8,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class AssociadoMapper {
 
+    private final VotoMapper votoMapper;
+
+    public AssociadoMapper(VotoMapper votoMapper) {
+        this.votoMapper = votoMapper;
+    }
+
     public Associado toEntity(AssociadoRequestDTO dto) {
         Associado associado = new Associado();
         associado.setCpf(dto.cpf());
@@ -15,6 +21,6 @@ public class AssociadoMapper {
         return associado;
     }
     public AssociadoResponseDTO toDTO(Associado associado) {
-        return new AssociadoResponseDTO(associado.getId(), associado.getCpf(), associado.getNome());
+        return new AssociadoResponseDTO(associado.getId(),  associado.getNome(), associado.getCpf(), votoMapper.toDTOList(associado.getVotos()));
     }
 }
