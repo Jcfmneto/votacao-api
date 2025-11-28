@@ -3,6 +3,7 @@ package com.julio.votacao.controller;
 import com.julio.votacao.dto.request.PautaRequestDTO;
 import com.julio.votacao.dto.response.PautaResponseDTO;
 import com.julio.votacao.service.PautaService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class PautaController {
     }
 
     @PostMapping
-    public ResponseEntity<PautaResponseDTO> create(@RequestBody PautaRequestDTO dto) {
+    public ResponseEntity<PautaResponseDTO> create(@Valid @RequestBody PautaRequestDTO dto) {
         PautaResponseDTO created = pautaService.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }

@@ -22,6 +22,11 @@ public class Sessao {
 
     public Sessao(){}
 
+    public boolean isAberta() {
+        LocalDateTime now = LocalDateTime.now();
+        return now.isAfter(dataAbertura) && now.isBefore(dataFechamento);
+    }
+
     public Long getId() {
         return id;
     }
@@ -49,4 +54,5 @@ public class Sessao {
     public void setDataFechamento(LocalDateTime dataFechamento) {
         this.dataFechamento = dataFechamento;
     }
+
 }

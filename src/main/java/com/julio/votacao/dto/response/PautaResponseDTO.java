@@ -1,4 +1,4 @@
 package com.julio.votacao.dto.response;
 
-public record PautaResponseDTO(Long id, String nome) {
+public record PautaResponseDTO(Long id, String titulo, String descricao) {
 }

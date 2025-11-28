@@ -4,7 +4,7 @@ package com.julio.votacao.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "associado", uniqueConstraints = @UniqueConstraint(columnNames = "cpf"))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "cpf"))
 public class Associado {
 
     @Id
@@ -14,7 +14,7 @@ public class Associado {
     private String nome;
 
     @Column(nullable = false, unique = true)
-    private String cpf;;
+    private String cpf;
 
     public Associado() {}
 

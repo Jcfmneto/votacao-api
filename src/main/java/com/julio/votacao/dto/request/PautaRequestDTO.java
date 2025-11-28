@@ -1,4 +1,9 @@
 package com.julio.votacao.dto.request;
 
-public record PautaRequestDTO(String nome) {
+import jakarta.validation.constraints.NotBlank;
+
+public record PautaRequestDTO(
+        @NotBlank(message = "Titulo é obrigatório")
+        String titulo,
+        String descricao) {
 }

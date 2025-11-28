@@ -12,21 +12,30 @@ public class Pauta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+
+    private String titulo;
+    private String descricao;
 
 
     public Pauta() {}
 
-    public Pauta(String nome) {
-        this.nome = nome;
+
+
+    public Pauta(String nome, String descricao) {
+        this.titulo = nome;
+        this.descricao = descricao;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getTitulo() {
+        return titulo;
     }
+    public String getDescricao() {
+        return descricao;
+    }
+
 
 }

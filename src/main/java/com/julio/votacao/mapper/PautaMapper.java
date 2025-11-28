@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 public class PautaMapper {
 
 public Pauta toEntity(PautaRequestDTO dto) {
-        return new Pauta(dto.nome());
+        return new Pauta(dto.titulo(), dto.descricao());
     }
 
     public PautaResponseDTO toDTO(Pauta pauta) {
-        return new PautaResponseDTO(pauta.getId(), pauta.getNome());
+        return new PautaResponseDTO(pauta.getId(), pauta.getTitulo(), pauta.getDescricao());
     }
 }

@@ -3,6 +3,7 @@ package com.julio.votacao.controller;
 import com.julio.votacao.dto.request.SessaoRequestDTO;
 import com.julio.votacao.dto.response.SessaoResponseDTO;
 import com.julio.votacao.service.SessaoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
