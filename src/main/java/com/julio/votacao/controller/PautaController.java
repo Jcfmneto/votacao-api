@@ -1,0 +1,41 @@
+package com.julio.votacao.controller;
+
+import com.julio.votacao.dto.request.PautaRequestDTO;
+import com.julio.votacao.dto.response.PautaResponseDTO;
+import com.julio.votacao.model.Pauta;
+import com.julio.votacao.service.PautaService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/pauta")
+public class PautaController {
+
+    private final PautaService pautaService;
+
+    public PautaController(PautaService pautaService) {
+        this.pautaService = pautaService;
+    }
+
+    @PostMapping
+    public ResponseEntity<PautaResponseDTO> create(@RequestBody PautaRequestDTO dto) {
+        PautaResponseDTO created = pautaService.create(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PautaResponseDTO>> get() {
+        List<PautaResponseDTO> pautas = pautaService.get();
+        return ResponseEntity.ok(pautas);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PautaResponseDTO> getById(@PathVariable("id") Long id) {
+        PautaResponseDTO pauta = pautaService.getById(id);
+        return ResponseEntity.ok(pauta);
+    }
+
+
+}
