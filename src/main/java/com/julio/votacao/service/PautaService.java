@@ -29,13 +29,13 @@ public class PautaService {
         return mapper.toDTO(pauta);
     }
 
-    public List<PautaResponseDTO> get() {
+    public List<PautaResponseDTO> findAll() {
         return pautaRepository.findAll()
                 .stream()
                 .map(mapper::toDTO)
                 .toList();
     }
-    public PautaResponseDTO getById(Long id) {
+    public PautaResponseDTO findById(Long id) {
        Pauta pauta = pautaRepository.findById(id)
                .orElseThrow(() -> new PautaNotFoundException(id));
        return mapper.toDTO(pauta);

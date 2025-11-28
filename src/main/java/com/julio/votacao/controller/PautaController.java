@@ -25,14 +25,14 @@ public class PautaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PautaResponseDTO>> get() {
-        List<PautaResponseDTO> pautas = pautaService.get();
+    public ResponseEntity<List<PautaResponseDTO>> getAll() {
+        List<PautaResponseDTO> pautas = pautaService.findAll();
         return ResponseEntity.ok(pautas);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PautaResponseDTO> getById(@PathVariable("id") Long id) {
-        PautaResponseDTO pauta = pautaService.getById(id);
+        PautaResponseDTO pauta = pautaService.findById(id);
         return ResponseEntity.ok(pauta);
     }
 
