@@ -2,7 +2,6 @@ package com.julio.votacao.controller;
 
 import com.julio.votacao.dto.request.PautaRequestDTO;
 import com.julio.votacao.dto.response.PautaResponseDTO;
-import com.julio.votacao.model.Pauta;
 import com.julio.votacao.service.PautaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

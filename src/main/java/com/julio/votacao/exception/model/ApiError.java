@@ -5,13 +5,13 @@ import java.time.Instant;
 public class ApiError {
 
     private final Instant timestamp;
+    private final String message;
+    private final int  status;
 
-
-    private String message;
-
-    public ApiError(String message) {
+    public ApiError(String message, int status) {
         this.message = message;
         this.timestamp = Instant.now();
+        this.status = status;
     }
 
     public Instant getTimestamp() {
@@ -21,4 +21,10 @@ public class ApiError {
     public String getMessage() {
         return message;
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+
 }
