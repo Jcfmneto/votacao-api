@@ -3,6 +3,8 @@ package com.julio.votacao.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "cpf"))
 public class Associado {
@@ -15,6 +17,10 @@ public class Associado {
 
     @Column(nullable = false, unique = true)
     private String cpf;
+
+    @OneToMany(mappedBy = "associado", cascade = CascadeType.ALL)
+    private List<Voto> votos;
+
 
     public Associado() {}
 
