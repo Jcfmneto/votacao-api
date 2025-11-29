@@ -11,30 +11,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/voto")
+@RequestMapping("/api/v1/voto")
 public class VotoController {
 
-    private final VotoService votoService;
+  private final VotoService votoService;
 
-    public VotoController(VotoService votoService) {
-        this.votoService = votoService;
-    }
+  public VotoController(VotoService votoService) {
+    this.votoService = votoService;
+  }
 
-    @PostMapping
-    public ResponseEntity<VotoResponseDTO> votar(@RequestBody @Valid VotoRequestDTO dto) {
-        VotoResponseDTO votoDto = votoService.castVote(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(votoDto);
-    }
+  @PostMapping
+  public ResponseEntity<VotoResponseDTO> votar(@RequestBody @Valid VotoRequestDTO dto) {
+    VotoResponseDTO votoDto = votoService.castVote(dto);
+    return ResponseEntity.status(HttpStatus.CREATED).body(votoDto);
+  }
 
-    @GetMapping("/sessao/{sessaoId}")
-    public ResponseEntity<List<VotoResponseDTO>> listarPorSessao(@PathVariable Long sessaoId) {
-        List<VotoResponseDTO> votos = votoService.listVotesBySession(sessaoId);
-        return ResponseEntity.ok(votos);
-    }
+  @GetMapping("/sessao/{sessaoId}")
+  public ResponseEntity<List<VotoResponseDTO>> listarPorSessao(@PathVariable Long sessaoId) {
+    List<VotoResponseDTO> votos = votoService.listVotesBySession(sessaoId);
+    return ResponseEntity.ok(votos);
+  }
 
-    @GetMapping("/associado/{associadoId}")
-    public ResponseEntity<List<VotoResponseDTO>> listarPorAssociado(@PathVariable Long associadoId) {
-        List<VotoResponseDTO> votos = votoService.listVotesByMember(associadoId);
-        return ResponseEntity.ok(votos);
-    }
+  @GetMapping("/associado/{associadoId}")
+  public ResponseEntity<List<VotoResponseDTO>> listarPorAssociado(@PathVariable Long associadoId) {
+    List<VotoResponseDTO> votos = votoService.listVotesByMember(associadoId);
+    return ResponseEntity.ok(votos);
+  }
 }

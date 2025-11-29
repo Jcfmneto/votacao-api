@@ -10,32 +10,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/pauta")
+@RequestMapping("/api/v1/pauta")
 public class PautaController {
 
-    private final PautaService pautaService;
+  private final PautaService pautaService;
 
-    public PautaController(PautaService pautaService) {
-        this.pautaService = pautaService;
-    }
+  public PautaController(PautaService pautaService) {
+    this.pautaService = pautaService;
+  }
 
-    @PostMapping
-    public ResponseEntity<PautaResponseDTO> create(@Valid @RequestBody PautaRequestDTO dto) {
-        PautaResponseDTO created = pautaService.create(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(created);
-    }
+  @PostMapping
+  public ResponseEntity<PautaResponseDTO> create(@Valid @RequestBody PautaRequestDTO dto) {
+    PautaResponseDTO created = pautaService.create(dto);
+    return ResponseEntity.status(HttpStatus.CREATED).body(created);
+  }
 
-    @GetMapping
-    public ResponseEntity<List<PautaResponseDTO>> getAll() {
-        List<PautaResponseDTO> pautas = pautaService.findAll();
-        return ResponseEntity.ok(pautas);
-    }
+  @GetMapping
+  public ResponseEntity<List<PautaResponseDTO>> getAll() {
+    List<PautaResponseDTO> pautas = pautaService.findAll();
+    return ResponseEntity.ok(pautas);
+  }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PautaResponseDTO> getById(@PathVariable("id") Long id) {
-        PautaResponseDTO pauta = pautaService.findById(id);
-        return ResponseEntity.ok(pauta);
-    }
-
+  @GetMapping("/{id}")
+  public ResponseEntity<PautaResponseDTO> getById(@PathVariable("id") Long id) {
+    PautaResponseDTO pauta = pautaService.findById(id);
+    return ResponseEntity.ok(pauta);
+  }
 
 }

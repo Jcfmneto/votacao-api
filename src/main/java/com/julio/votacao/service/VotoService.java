@@ -21,55 +21,54 @@ import java.util.List;
 @Service
 public class VotoService {
 
-    private final VotoRepository votoRepository;
-    private final AssociadoRepository associadoRepository;
-    private final SessaoRepository sessaoRepository;
-    private final VotoMapper votoMapper;
+  private final VotoRepository votoRepository;
+  private final AssociadoRepository associadoRepository;
+  private final SessaoRepository sessaoRepository;
+  private final VotoMapper votoMapper;
 
-    public VotoService(VotoRepository votoRepository,
-                       AssociadoRepository associadoRepository,
-                       SessaoRepository sessaoRepository,
-                       VotoMapper votoMapper) {
-        this.votoRepository = votoRepository;
-        this.associadoRepository = associadoRepository;
-        this.sessaoRepository = sessaoRepository;
-        this.votoMapper = votoMapper;
+  public VotoService(VotoRepository votoRepository,
+      AssociadoRepository associadoRepository,
+      SessaoRepository sessaoRepository,
+      VotoMapper votoMapper) {
+    this.votoRepository = votoRepository;
+    this.associadoRepository = associadoRepository;
+    this.sessaoRepository = sessaoRepository;
+    this.votoMapper = votoMapper;
+  }
+
+  @Transactional
+  public VotoResponseDTO castVote(VotoRequestDTO dto) {
+    Sessao sessao = sessaoRepository.findById(dto.sessaoId())
+        .orElseThrow(() -> new SessaoNotFoundException(dto.sessaoId()));
+
+    if (!sessao.isOpen()) {
+      throw new SessaoAlreadyExpired();
     }
 
-    @Transactional
-    public VotoResponseDTO castVote(VotoRequestDTO dto) {
-        Sessao sessao = sessaoRepository.findById(dto.sessaoId())
-                .orElseThrow(() -> new SessaoNotFoundException(dto.sessaoId()));
+    Associado associado = associadoRepository.findById(dto.associadoId())
+        .orElseThrow(() -> new AssociadoNotFoundException(dto.associadoId()));
 
+    votoRepository.findBySessaoIdAndAssociadoId(dto.sessaoId(), dto.associadoId())
+        .ifPresent(v -> {
+          throw new AssociadoAlreadyVoted(dto.associadoId());
+        });
 
-        if (!sessao.isOpen()) {
-            throw new SessaoAlreadyExpired("Sessão já encerrada");
-        }
+    Voto voto = votoMapper.toEntity(dto, sessao, associado);
+    Voto saved = votoRepository.save(voto);
+    return votoMapper.toDTO(saved);
+  }
 
-        Associado associado = associadoRepository.findById(dto.associadoId())
-                .orElseThrow(() -> new AssociadoNotFoundException(dto.associadoId()));
+  public List<VotoResponseDTO> listVotesBySession(Long sessaoId) {
+    return votoRepository.findBySessaoId(sessaoId)
+        .stream()
+        .map(votoMapper::toDTO)
+        .toList();
+  }
 
-        votoRepository.findBySessaoIdAndAssociadoId(dto.sessaoId(), dto.associadoId())
-                .ifPresent(v -> {
-                    throw new AssociadoAlreadyVoted(dto.associadoId());
-                });
-
-        Voto voto = votoMapper.toEntity(dto, sessao, associado);
-        Voto saved = votoRepository.save(voto);
-        return votoMapper.toDTO(saved);
-    }
-
-    public List<VotoResponseDTO> listVotesBySession(Long sessaoId) {
-        return votoRepository.findBySessaoId(sessaoId)
-                .stream()
-                .map(votoMapper::toDTO)
-                .toList();
-    }
-
-    public List<VotoResponseDTO> listVotesByMember(Long associadoId) {
-        return votoRepository.findByAssociadoId(associadoId)
-                .stream()
-                .map(votoMapper::toDTO)
-                .toList();
-    }
+  public List<VotoResponseDTO> listVotesByMember(Long associadoId) {
+    return votoRepository.findByAssociadoId(associadoId)
+        .stream()
+        .map(votoMapper::toDTO)
+        .toList();
+  }
 }
