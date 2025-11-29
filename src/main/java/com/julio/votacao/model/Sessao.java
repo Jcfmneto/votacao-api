@@ -1,6 +1,5 @@
 package com.julio.votacao.model;
 
-
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -9,57 +8,62 @@ import java.util.List;
 @Entity
 public class Sessao {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "pauta_id")
-    private Pauta pauta;
+  @ManyToOne
+  @JoinColumn(name = "pauta_id")
+  private Pauta pauta;
 
-    private LocalDateTime dataAbertura;
-    private LocalDateTime dataFechamento;
+  private LocalDateTime dataAbertura;
+  private LocalDateTime dataFechamento;
 
-    @OneToMany(mappedBy = "sessao", cascade = CascadeType.ALL)
-    private List<Voto> votos;
+  @OneToMany(mappedBy = "sessao", cascade = CascadeType.ALL)
+  private List<Voto> votos;
 
-    public Sessao(){}
+  public Sessao() {
+  }
 
-    public boolean isOpen() {
-        LocalDateTime now = LocalDateTime.now();
-        return now.isAfter(dataAbertura) && now.isBefore(dataFechamento);
-    }
+  public boolean isOpen() {
+    LocalDateTime now = LocalDateTime.now();
+    return now.isAfter(dataAbertura) && now.isBefore(dataFechamento);
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public Pauta getPauta() {
-        return pauta;
-    }
+  public Pauta getPauta() {
+    return pauta;
+  }
 
-    public void setPauta(Pauta pauta) {
-        this.pauta = pauta;
-    }
+  public void setPauta(Pauta pauta) {
+    this.pauta = pauta;
+  }
 
-    public LocalDateTime getDataAbertura() {
-        return dataAbertura;
-    }
+  public LocalDateTime getDataAbertura() {
+    return dataAbertura;
+  }
 
-    public void setDataAbertura(LocalDateTime dataAbertura) {
-        this.dataAbertura = dataAbertura;
-    }
+  public void setDataAbertura(LocalDateTime dataAbertura) {
+    this.dataAbertura = dataAbertura;
+  }
 
-    public List<Voto> getVotos() {
-        return votos;
-    }
+  public List<Voto> getVotos() {
+    return votos;
+  }
 
-    public LocalDateTime getDataFechamento() {
-        return dataFechamento;
-    }
+  public LocalDateTime getDataFechamento() {
+    return dataFechamento;
+  }
 
-    public void setDataFechamento(LocalDateTime dataFechamento) {
-        this.dataFechamento = dataFechamento;
-    }
+  public void setDataFechamento(LocalDateTime dataFechamento) {
+    this.dataFechamento = dataFechamento;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
 
 }

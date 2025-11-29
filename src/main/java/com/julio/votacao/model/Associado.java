@@ -1,6 +1,5 @@
 package com.julio.votacao.model;
 
-
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -9,46 +8,51 @@ import java.util.List;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "cpf"))
 public class Associado {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private String nome;
+  private String nome;
 
-    @Column(nullable = false, unique = true)
-    private String cpf;
+  @Column(nullable = false, unique = true)
+  private String cpf;
 
-    @OneToMany(mappedBy = "associado", cascade = CascadeType.ALL)
-    private List<Voto> votos;
+  @OneToMany(mappedBy = "associado", cascade = CascadeType.ALL)
+  private List<Voto> votos;
 
+  public Associado() {
+  }
 
-    public Associado() {}
+  public Associado(String nome, String cpf) {
+    this.nome = nome;
+    this.cpf = cpf;
+  }
 
-    public Associado(String nome, String cpf) {
-        this.nome = nome;
-        this.cpf = cpf;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public String getNome() {
-        return nome;
-    }
+  public String getNome() {
+    return nome;
+  }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
 
-    public String getCpf() {
-        return cpf;
-    }
+  public String getCpf() {
+    return cpf;
+  }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-    public List<Voto> getVotos() {
-        return votos;
-    }
+  public void setCpf(String cpf) {
+    this.cpf = cpf;
+  }
+
+  public List<Voto> getVotos() {
+    return votos;
+  }
 }

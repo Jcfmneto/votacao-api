@@ -34,12 +34,7 @@ public class SessaoService {
   public SessaoResponseDTO create(SessaoRequestDTO dto) {
     Pauta pauta = pautaRepository.findById(dto.pautaId())
         .orElseThrow(() -> new PautaNotFoundException(dto.pautaId()));
-    Sessao sessao = new Sessao();
-    sessao.setPauta(pauta);
-    LocalDateTime abertura = LocalDateTime.now();
-    sessao.setDataAbertura(abertura);
-    int minutos = dto.duracaoMinutos() != null ? dto.duracaoMinutos() : 1;
-    sessao.setDataFechamento(abertura.plusMinutes(minutos));
+    Sessao sessao = buildSessao(dto, pauta);
     Sessao saved = sessaoRepository.save(sessao);
     return sessaoMapper.toDTO(saved);
   }
@@ -61,5 +56,16 @@ public class SessaoService {
     Sessao sessao = sessaoRepository.findById(sessaoId)
         .orElseThrow(() -> new SessaoNotFoundException(sessaoId));
     return sessaoMapper.toResultadoDTO(sessao);
+  }
+
+  private Sessao buildSessao(SessaoRequestDTO dto, Pauta pauta) {
+    LocalDateTime abertura = LocalDateTime.now();
+    int duracao = dto.duracaoMinutos() != null ? dto.duracaoMinutos() : 1;
+
+    Sessao sessao = new Sessao();
+    sessao.setPauta(pauta);
+    sessao.setDataAbertura(abertura);
+    sessao.setDataFechamento(abertura.plusMinutes(duracao));
+    return sessao;
   }
 }

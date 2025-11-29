@@ -48,10 +48,9 @@ public class VotoService {
     Associado associado = associadoRepository.findById(dto.associadoId())
         .orElseThrow(() -> new AssociadoNotFoundException(dto.associadoId()));
 
-    votoRepository.findBySessaoIdAndAssociadoId(dto.sessaoId(), dto.associadoId())
-        .ifPresent(v -> {
-          throw new AssociadoAlreadyVoted(dto.associadoId());
-        });
+    if (votoRepository.findBySessaoIdAndAssociadoId(dto.sessaoId(), dto.associadoId()).isPresent()) {
+      throw new AssociadoAlreadyVoted(dto.associadoId());
+    }
 
     Voto voto = votoMapper.toEntity(dto, sessao, associado);
     Voto saved = votoRepository.save(voto);

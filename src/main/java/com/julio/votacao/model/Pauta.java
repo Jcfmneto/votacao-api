@@ -8,34 +8,43 @@ import jakarta.persistence.Id;
 @Entity
 public class Pauta {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
+  private String titulo;
+  private String descricao;
 
-    private String titulo;
-    private String descricao;
+  public Pauta() {
+  }
 
+  public Pauta(String nome, String descricao) {
+    this.titulo = nome;
+    this.descricao = descricao;
+  }
 
-    public Pauta() {}
+  public Long getId() {
+    return id;
+  }
 
+  public String getTitulo() {
+    return titulo;
+  }
 
+  public String getDescricao() {
+    return descricao;
+  }
 
-    public Pauta(String nome, String descricao) {
-        this.titulo = nome;
-        this.descricao = descricao;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public void setTitulo(String titulo) {
+    this.titulo = titulo;
+  }
 
-    public String getTitulo() {
-        return titulo;
-    }
-    public String getDescricao() {
-        return descricao;
-    }
-
+  public void setDescricao(String descricao) {
+    this.descricao = descricao;
+  }
 
 }
