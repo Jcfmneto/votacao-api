@@ -3,6 +3,7 @@ package com.julio.votacao.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,7 @@ public class Sessao {
   private LocalDateTime dataFechamento;
 
   @OneToMany(mappedBy = "sessao", cascade = CascadeType.ALL)
-  private List<Voto> votos;
+  private List<Voto> votos = new ArrayList<>();
 
   public Sessao() {
   }

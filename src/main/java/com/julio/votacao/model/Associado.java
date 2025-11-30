@@ -2,6 +2,7 @@ package com.julio.votacao.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,7 +19,7 @@ public class Associado {
   private String cpf;
 
   @OneToMany(mappedBy = "associado", cascade = CascadeType.ALL)
-  private List<Voto> votos;
+  private List<Voto> votos = new ArrayList<>();
 
   public Associado() {
   }

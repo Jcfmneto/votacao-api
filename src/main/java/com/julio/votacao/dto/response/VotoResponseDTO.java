@@ -1,7 +1,7 @@
 package com.julio.votacao.dto.response;
 
 public record VotoResponseDTO(
-    Long votoid,
+    Long id,
     Boolean escolha,
     Long sessaoId,
     Long associadoId) {
