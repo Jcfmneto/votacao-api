@@ -47,8 +47,6 @@
 - Estrutura em camadas controller → service → repository para organizar o código
   
 ## Como Rodar
-- git clone https://github.com/seu-repo/votacao-api.git
-- cd votacao-api
 - mvn spring-boot:run
 - Acessar documentação Swagger UI  
 [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)  
