@@ -123,6 +123,7 @@ class VotoServiceTest {
 
   @Test
   void deveListarVotosPorSessao() {
+    when(sessaoRepository.findById(1L)).thenReturn(Optional.of(sessao));
     when(votoRepository.findBySessaoId(1L)).thenReturn(List.of(voto));
     when(votoMapper.toDTO(voto)).thenReturn(response);
 

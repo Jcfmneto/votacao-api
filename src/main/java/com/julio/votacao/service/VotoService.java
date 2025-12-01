@@ -58,6 +58,9 @@ public class VotoService {
   }
 
   public List<VotoResponseDTO> listVotesBySession(Long sessaoId) {
+    sessaoRepository.findById(sessaoId)
+        .orElseThrow(() -> new SessaoNotFoundException(sessaoId));
+
     return votoRepository.findBySessaoId(sessaoId)
         .stream()
         .map(votoMapper::toDTO)
