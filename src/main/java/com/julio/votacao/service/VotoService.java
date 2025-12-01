@@ -68,6 +68,9 @@ public class VotoService {
   }
 
   public List<VotoResponseDTO> listVotesByMember(Long associadoId) {
+    associadoRepository.findById(associadoId)
+        .orElseThrow(() -> new AssociadoNotFoundException(associadoId));
+
     return votoRepository.findByAssociadoId(associadoId)
         .stream()
         .map(votoMapper::toDTO)

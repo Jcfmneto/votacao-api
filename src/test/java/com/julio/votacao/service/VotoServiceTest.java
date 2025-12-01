@@ -135,6 +135,7 @@ class VotoServiceTest {
 
   @Test
   void deveListarVotosPorAssociado() {
+    when(associadoRepository.findById(1L)).thenReturn(Optional.of(associado));
     when(votoRepository.findByAssociadoId(1L)).thenReturn(List.of(voto));
     when(votoMapper.toDTO(voto)).thenReturn(response);
 
@@ -142,5 +143,9 @@ class VotoServiceTest {
 
     assertThat(result).hasSize(1);
     assertThat(result.get(0)).isEqualTo(response);
+
+    verify(associadoRepository).findById(1L);
+    verify(votoRepository).findByAssociadoId(1L);
+    verify(votoMapper).toDTO(voto);
   }
 }
